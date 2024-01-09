@@ -11,7 +11,9 @@ return {
 	{
 		"mg979/vim-visual-multi",
 	},
-	"numToStr/Comment.nvim",
-	opts = {},
-	lazy = false,
+	{
+		"numToStr/Comment.nvim",
+		opts = {},
+		lazy = false,
+	},
 }
