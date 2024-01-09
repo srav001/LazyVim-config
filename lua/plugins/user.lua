@@ -12,7 +12,7 @@ return {
 					accept = "<C-l>",
 					accept_word = false,
 					accept_line = false,
-					dismiss = "<C-]>",
+					dismiss = "<C-o>",
 				},
 			},
 		},
@@ -20,17 +20,22 @@ return {
 	{
 		"echasnovski/mini.move",
 		version = "*",
-		config = function()
-			require("mini.move").setup()
-		end,
+		opts = {},
 		event = "VeryLazy",
 	},
 	{
 		"mg979/vim-visual-multi",
+		event = "VeryLazy",
 	},
 	{
 		"numToStr/Comment.nvim",
 		opts = {},
 		lazy = false,
+	},
+	{
+		"LazyVim/LazyVim",
+		opts = {
+			colorscheme = "catppuccin-mocha",
+		},
 	},
 }
