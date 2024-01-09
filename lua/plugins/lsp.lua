@@ -2,25 +2,17 @@ return {
 	{ import = "lazyvim.plugins.extras.lang.json" },
 	{ import = "lazyvim.plugins.extras.linting.eslint" },
 	{ import = "lazyvim.plugins.extras.formatting.prettier" },
-
 	{
 		"neovim/nvim-lspconfig",
 		---@class PluginLspOpts
 		opts = {
-			---@type lspconfig.options
-			servers = {
-				-- pyright will be automatically installed with mason and loaded with lspconfig
-				volar = {
-					filetypes = {
-						"typescript",
-						"javascript",
-						"javascriptreact",
-						"typescriptreact",
-						"vue",
-						"json",
-						"svelte",
-					},
-					settings = {
+			---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+			setup = {
+				---@class lspconfig.options.volar
+				volar = function(_, opts)
+					opts.filetypes =
+						{ "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json", "svelte" }
+					opts.settings = {
 						typescript = {
 							inlayHints = {
 								enumMemberValues = {
@@ -79,8 +71,10 @@ return {
 								},
 							},
 						},
-					},
-				},
+					}
+				end,
+				-- Specify * to use this function as a fallback for any server
+				-- ["*"] = function(server, opts) end,
 			},
 		},
 	},

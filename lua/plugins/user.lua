@@ -10,6 +10,8 @@ return {
 	},
 	{
 		"mg979/vim-visual-multi",
-		event = "User AstroFile",
 	},
+	"numToStr/Comment.nvim",
+	opts = {},
+	lazy = false,
 }

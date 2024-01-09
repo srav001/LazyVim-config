@@ -26,13 +26,18 @@ return {
 			local cmp = require("cmp")
 
 			opts.mapping = vim.tbl_extend("force", opts.mapping, {
-				["<Up>"] = nil,
-				["<Down>"] = nil,
+				-- To Only move in completions menu with Tab and S-Tab
+				["<Down>"] = cmp.mapping(function(fallback)
+					cmp.close()
+					fallback()
+				end, { "i" }),
+				["<Up>"] = cmp.mapping(function(fallback)
+					cmp.close()
+					fallback()
+				end, { "i" }),
 				["<Tab>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						cmp.select_next_item()
-					-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-					-- this way you will only jump inside the snippet region
 					elseif luasnip.expand_or_locally_jumpable() then
 						luasnip.expand_or_jump()
 					elseif has_words_before() then
