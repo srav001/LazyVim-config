@@ -2,4 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
 vim.keymap.set("n", ";", ":")
-vim.keymap.set("n", "l", "")
+
+vim.keymap.del("n", "<leader>l")
+vim.keymap.del({ "n", "x" }, "<Up>")
+vim.keymap.del({ "n", "x" }, "<Down>")
