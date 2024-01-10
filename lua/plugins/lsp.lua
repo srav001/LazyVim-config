@@ -75,6 +75,35 @@ return {
 						},
 					}
 				end,
+				-- ---@class lspconfig.options.tsserver
+				-- tsserver = function(_, opts)
+				-- 	opts.settings = {
+				-- 		typescript = {
+				-- 			inlayHints = {
+				-- 				includeInlayParameterNameHints = "all",
+				-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+				-- 				includeInlayFunctionParameterTypeHints = true,
+				-- 				includeInlayVariableTypeHints = true,
+				-- 				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+				-- 				includeInlayPropertyDeclarationTypeHints = true,
+				-- 				includeInlayFunctionLikeReturnTypeHints = true,
+				-- 				includeInlayEnumMemberValueHints = true,
+				-- 			},
+				-- 		},
+				-- 		javascript = {
+				-- 			inlayHints = {
+				-- 				includeInlayParameterNameHints = "all",
+				-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+				-- 				includeInlayFunctionParameterTypeHints = true,
+				-- 				includeInlayVariableTypeHints = true,
+				-- 				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+				-- 				includeInlayPropertyDeclarationTypeHints = true,
+				-- 				includeInlayFunctionLikeReturnTypeHints = true,
+				-- 				includeInlayEnumMemberValueHints = true,
+				-- 			},
+				-- 		},
+				-- 	}
+				-- end,
 				-- Specify * to use this function as a fallback for any server
 				-- ["*"] = function(server, opts) end,
 			},
