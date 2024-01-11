@@ -5,7 +5,7 @@ Supports web developement. Uses Volar with takeover mode as tsserver replacement
 ### To clone
 
 ```sh
-git clone git@github.com:srav001/LazyVim-config.git ~/.config/nvim
+git clone git@github.com:srav001/LazyVim-config.git ~/.config/nvim && ~/.config/nvim && nvim
 ```
 
 ### To Remove
