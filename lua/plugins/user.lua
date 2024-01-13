@@ -38,4 +38,8 @@ return {
 			colorscheme = "catppuccin-mocha",
 		},
 	},
+	{
+		"rcarriga/nvim-notify",
+		enabled = false,
+	},
 }
