@@ -34,71 +34,100 @@ return {
 				},
 			},
 			setup = {
-				---@class lspconfig.options.volar
-				volar = function(_, opts)
-					opts.filetypes =
-						{ "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "svelte" }
+				tsserver = function(_, opts)
+					opts.capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
 					opts.settings = {
 						typescript = {
 							inlayHints = {
-								enumMemberValues = {
-									enabled = true,
-								},
-								functionLikeReturnTypes = {
-									enabled = true,
-								},
-								includeInlayFunctionParameterTypeHints = {
-									enabled = true,
-								},
-								parameterNames = {
-									enabled = true,
-									suppressWhenArgumentMatchesName = true,
-								},
-								parameterTypes = {
-									enabled = true,
-								},
-								propertyDeclarationTypes = {
-									enabled = true,
-								},
-								includeInlayFunctionLikeReturnTypeHints = {
-									enabled = true,
-								},
-								variableTypes = {
-									enabled = true,
-								},
+								includeInlayParameterNameHints = "all",
+								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = true,
+								includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
 							},
 						},
 						javascript = {
 							inlayHints = {
-								enumMemberValues = {
-									enabled = true,
-								},
-								functionLikeReturnTypes = {
-									enabled = true,
-								},
-								includeInlayFunctionParameterTypeHints = {
-									enabled = true,
-								},
-								parameterNames = {
-									enabled = true,
-									suppressWhenArgumentMatchesName = true,
-								},
-								parameterTypes = {
-									enabled = true,
-								},
-								propertyDeclarationTypes = {
-									enabled = true,
-								},
-								includeInlayFunctionLikeReturnTypeHints = {
-									enabled = true,
-								},
-								variableTypes = {
-									enabled = true,
-								},
+								includeInlayParameterNameHints = "all",
+								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = true,
+								includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
 							},
 						},
 					}
 				end,
+				---@class lspconfig.options.volar
+				-- volar = function(_, opts)
+				-- 	opts.filetypes =
+				-- 		{ "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "svelte" }
+				-- 	opts.settings = {
+				-- 		typescript = {
+				-- 			inlayHints = {
+				-- 				enumMemberValues = {
+				-- 					enabled = true,
+				-- 				},
+				-- 				functionLikeReturnTypes = {
+				-- 					enabled = true,
+				-- 				},
+				-- 				includeInlayFunctionParameterTypeHints = {
+				-- 					enabled = true,
+				-- 				},
+				-- 				parameterNames = {
+				-- 					enabled = true,
+				-- 					suppressWhenArgumentMatchesName = true,
+				-- 				},
+				-- 				parameterTypes = {
+				-- 					enabled = true,
+				-- 				},
+				-- 				propertyDeclarationTypes = {
+				-- 					enabled = true,
+				-- 				},
+				-- 				includeInlayFunctionLikeReturnTypeHints = {
+				-- 					enabled = true,
+				-- 				},
+				-- 				variableTypes = {
+				-- 					enabled = true,
+				-- 				},
+				-- 			},
+				-- 		},
+				-- 		javascript = {
+				-- 			inlayHints = {
+				-- 				enumMemberValues = {
+				-- 					enabled = true,
+				-- 				},
+				-- 				functionLikeReturnTypes = {
+				-- 					enabled = true,
+				-- 				},
+				-- 				includeInlayFunctionParameterTypeHints = {
+				-- 					enabled = true,
+				-- 				},
+				-- 				parameterNames = {
+				-- 					enabled = true,
+				-- 					suppressWhenArgumentMatchesName = true,
+				-- 				},
+				-- 				parameterTypes = {
+				-- 					enabled = true,
+				-- 				},
+				-- 				propertyDeclarationTypes = {
+				-- 					enabled = true,
+				-- 				},
+				-- 				includeInlayFunctionLikeReturnTypeHints = {
+				-- 					enabled = true,
+				-- 				},
+				-- 				variableTypes = {
+				-- 					enabled = true,
+				-- 				},
+				-- 			},
+				-- 		},
+				-- 	}
+				-- end,
 				-- Specify * to use this function as a fallback for any server
 				["*"] = function(server, opts) end,
 			},
