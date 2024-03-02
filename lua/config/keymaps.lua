@@ -13,9 +13,8 @@ vim.keymap.set("n", "<leader>n", "<cmd>tabprevious<cr>")
 vim.keymap.set("n", "<leader>fz", "<cmd> Telescope current_buffer_fuzzy_find <CR>")
 vim.keymap.set("n", "<leader>sz", "<cmd> Telescope current_buffer_fuzzy_find <CR>")
 
--- vim.keymap.del("n", "<leader>/")
-vim.keymap.set("n", "<leader>/", function()
-	require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
-end)
+vim.keymap.set("n", "r", "<cmd>LspRestart<cr>")
+vim.keymap.set("n", "R", "<cmd>LspRestart<cr>")
+vim.keymap.set("n", "<leader>r", "<cmd>LspRestart<cr>")
 
 vim.keymap.set("v", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>")

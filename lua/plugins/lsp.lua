@@ -34,6 +34,7 @@ return {
 				},
 			},
 			setup = {
+				---@class lspconfig.options.tsserver
 				tsserver = function(_, opts)
 					opts.capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
 					opts.settings = {
