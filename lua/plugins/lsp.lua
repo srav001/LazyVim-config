@@ -26,35 +26,40 @@ return {
 					},
 				},
 			},
-			capabilities = {
-				workspace = {
-					didChangeWatchedFiles = {
-						dynamicRegistration = true,
-					},
-				},
-			},
-			setup = {
+			servers = {
 				---@class lspconfig.options.tsserver
-				tsserver = function(_, opts)
-					opts.capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
-					opts.settings = {
+				tsserver = {
+					capabilities = {
+						workspace = {
+							didChangeWatchedFiles = {
+								dynamicRegistration = true,
+							},
+						},
+					},
+					settings = {
+						completions = {
+							completeFunctionCalls = true,
+						},
 						typescript = {
 							inlayHints = {
 								includeInlayParameterNameHints = "all",
 								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
+								includeInlayFunctionParameterTypeHints = "all",
 								includeInlayVariableTypeHints = true,
 								includeInlayVariableTypeHintsWhenTypeMatchesName = false,
 								includeInlayPropertyDeclarationTypeHints = true,
 								includeInlayFunctionLikeReturnTypeHints = true,
 								includeInlayEnumMemberValueHints = true,
+							},
+							updateImportsOnFileMove = {
+								enabled = "always",
 							},
 						},
 						javascript = {
 							inlayHints = {
 								includeInlayParameterNameHints = "all",
 								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
+								includeInlayFunctionParameterTypeHints = "all",
 								includeInlayVariableTypeHints = true,
 								includeInlayVariableTypeHintsWhenTypeMatchesName = false,
 								includeInlayPropertyDeclarationTypeHints = true,
@@ -62,9 +67,11 @@ return {
 								includeInlayEnumMemberValueHints = true,
 							},
 						},
-					}
-				end,
-				---@class lspconfig.options.volar
+					},
+				},
+			},
+			setup = {
+				---@type fun(server:string, opts:lspconfig.options.volar)
 				-- volar = function(_, opts)
 				-- 	opts.filetypes =
 				-- 		{ "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "svelte" }
