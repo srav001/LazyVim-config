@@ -165,50 +165,50 @@ return {
           },
         },
       },
-      -- servers = {
-      ---@class lspconfig.options.tsserver
-      -- tsserver = {
-      -- 	capabilities = {
-      -- 		workspace = {
-      -- 			didChangeWatchedFiles = {
-      -- 				dynamicRegistration = true,
-      -- 			},
-      -- 		},
-      -- 	},
-      -- 	settings = {
-      -- 		completions = {
-      -- 			completeFunctionCalls = true,
-      -- 		},
-      -- 		typescript = {
-      -- 			inlayHints = {
-      -- 				includeInlayParameterNameHints = "all",
-      -- 				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-      -- 				includeInlayFunctionParameterTypeHints = "all",
-      -- 				includeInlayVariableTypeHints = true,
-      -- 				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-      -- 				includeInlayPropertyDeclarationTypeHints = true,
-      -- 				includeInlayFunctionLikeReturnTypeHints = true,
-      -- 				includeInlayEnumMemberValueHints = true,
-      -- 			},
-      -- 			updateImportsOnFileMove = {
-      -- 				enabled = "always",
-      -- 			},
-      -- 		},
-      -- 		javascript = {
-      -- 			inlayHints = {
-      -- 				includeInlayParameterNameHints = "all",
-      -- 				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-      -- 				includeInlayFunctionParameterTypeHints = "all",
-      -- 				includeInlayVariableTypeHints = true,
-      -- 				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-      -- 				includeInlayPropertyDeclarationTypeHints = true,
-      -- 				includeInlayFunctionLikeReturnTypeHints = true,
-      -- 				includeInlayEnumMemberValueHints = true,
-      -- 			},
-      -- 		},
-      -- 	},
-      -- },
-      -- },
+      servers = {
+        ---@class lspconfig.options.tsserver
+        tsserver = {
+          capabilities = {
+            workspace = {
+              didChangeWatchedFiles = {
+                dynamicRegistration = true,
+              },
+            },
+          },
+          settings = {
+            completions = {
+              completeFunctionCalls = true,
+            },
+            typescript = {
+              inlayHints = {
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = "all",
+                includeInlayVariableTypeHints = true,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+              updateImportsOnFileMove = {
+                enabled = "always",
+              },
+            },
+            javascript = {
+              inlayHints = {
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = "all",
+                includeInlayVariableTypeHints = true,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+          },
+        },
+      },
       -- setup = {
       ---@type fun(server:string, opts:lspconfig.options.volar)
       -- volar = function(_, opts)
