@@ -33,11 +33,7 @@ return {
     "mg979/vim-visual-multi",
     event = "VeryLazy",
   },
-  {
-    "numToStr/Comment.nvim",
-    opts = {},
-    lazy = false,
-  },
+
   {
     "rcarriga/nvim-notify",
     enabled = false,
