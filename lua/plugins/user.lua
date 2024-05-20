@@ -24,17 +24,6 @@ return {
     },
   },
   {
-    "echasnovski/mini.move",
-    version = "*",
-    opts = {},
-    event = "VeryLazy",
-  },
-  {
-    "mg979/vim-visual-multi",
-    event = "VeryLazy",
-  },
-
-  {
     "rcarriga/nvim-notify",
     enabled = false,
   },
