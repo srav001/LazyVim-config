@@ -7,7 +7,6 @@ return {
 	{ import = "lazyvim.plugins.extras.lang.typescript" },
 
 	-- IF USING EXTRAS LANG TYPESCRIPT - TSSERVER !!!!
-	-- { import = "lazyvim.plugins.extras.lang.typescript" },
 	-- {
 	--   "neovim/nvim-lspconfig",
 	--   ---@class PluginLspOpts
@@ -77,8 +76,6 @@ return {
 	--     -- setup = {
 	---@type fun(server:string, opts:lspconfig.options.volar)
 	-- volar = function(_, opts)
-	-- 	opts.filetypes =
-	-- 		{ "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "svelte" }
 	-- 	opts.settings = {
 	-- 		typescript = {
 	-- 			inlayHints = {
