@@ -1,9 +1,7 @@
 return {
-	-- Use <tab> for completion and snippets (supertab)
-	-- first: disable default <tab> and <s-tab> behavior in LuaSnip
 	{
 		"hrsh7th/nvim-cmp",
-		-- ---@param opts cmp.ConfigSchema
+		---@param opts cmp.ConfigSchema
 		opts = function(_, opts)
 			local has_words_before = function()
 				unpack = unpack or table.unpack
@@ -11,17 +9,10 @@ return {
 				return col ~= 0
 					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
+
 			local cmp = require("cmp")
 
 			opts.mapping = vim.tbl_extend("force", opts.mapping, {
-				["<Down>"] = cmp.mapping(function(fallback)
-					cmp.close()
-					fallback()
-				end, { "i" }),
-				["<Up>"] = cmp.mapping(function(fallback)
-					cmp.close()
-					fallback()
-				end, { "i" }),
 				["<Tab>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						-- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
