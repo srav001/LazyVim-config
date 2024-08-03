@@ -3,8 +3,8 @@ return {
 	-- first: disable default <tab> and <s-tab> behavior in LuaSnip
 	{
 		"hrsh7th/nvim-cmp",
-		commit = "b356f2c",
-		pin = true,
+		-- commit = "b356f2c",
+		-- pin = true,
 		-- ---@param opts cmp.ConfigSchema
 		opts = function(_, opts)
 			local has_words_before = function()
