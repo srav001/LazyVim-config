@@ -34,7 +34,7 @@ return {
 		version = false, -- set this if you want to always pull the latest change
 		opts = {
 			provider = "openai",
-			auto_suggestions_provider = "claude",
+			auto_suggestions_provider = "openai",
 		},
 		build = "make",
 		dependencies = {
