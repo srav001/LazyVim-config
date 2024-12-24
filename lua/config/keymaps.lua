@@ -7,8 +7,6 @@ vim.keymap.set("n", "DD", "dd")
 vim.keymap.set("n", "<tab>", "<cmd>bnext<cr>")
 vim.keymap.set("n", "<S-tab>", "<cmd>bprevious<cr>")
 vim.keymap.set("n", "<leader>n", "<cmd>tabprevious<cr>")
-vim.keymap.set("n", "<leader>fz", "<cmd> Telescope current_buffer_fuzzy_find <CR>")
-vim.keymap.set("n", "<leader>sz", "<cmd> Telescope current_buffer_fuzzy_find <CR>")
 
 vim.keymap.set("n", "r", "<cmd>LspRestart<cr>")
 vim.keymap.set("n", "R", "<cmd>LspRestart<cr>")
