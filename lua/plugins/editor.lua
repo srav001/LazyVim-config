@@ -1,6 +1,6 @@
 return {
 	{
-		"neo-tree.nvim",
+		"nvim-neo-tree/neo-tree.nvim",
 		opts = {
 			window = {
 				position = "float",
