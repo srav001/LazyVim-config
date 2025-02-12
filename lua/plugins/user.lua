@@ -6,15 +6,16 @@ return {
 		},
 	},
 	{
-		"rcarriga/nvim-notify",
-		enabled = false,
+		"snacks.nvim",
+		opts = {
+			notifier = { enabled = false },
+		},
 	},
 	{
 		"echasnovski/mini.ai",
 		enabled = false,
 	},
 	-- AI items
-
 	{
 		"supermaven-inc/supermaven-nvim",
 		event = "InsertEnter",
