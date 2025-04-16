@@ -1,9 +1,22 @@
 return {
+	-- {
+	-- 	"nvim-neo-tree/neo-tree.nvim",
+	-- 	opts = {
+	-- 		window = {
+	-- 			position = "float",
+	-- 		},
+	-- 	},
+	-- },
 	{
-		"nvim-neo-tree/neo-tree.nvim",
+		"snacks.nvim",
 		opts = {
-			window = {
-				position = "float",
+			notifier = { enabled = false },
+			picker = {
+				sources = {
+					explorer = {
+						layout = { preset = "default", preview = true },
+					},
+				},
 			},
 		},
 	},
