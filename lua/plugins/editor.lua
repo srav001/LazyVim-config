@@ -14,7 +14,7 @@ return {
 			picker = {
 				sources = {
 					explorer = {
-						layout = { preset = "default", preview = true },
+						layout = { preset = "right", preview = false },
 					},
 				},
 			},
