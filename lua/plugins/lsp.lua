@@ -9,4 +9,5 @@ return {
 		"folke/trouble.nvim",
 		opts = { use_diagnostic_signs = true },
 	},
+	-- :MasonInstall vue-language-server@2.2.8
 }
