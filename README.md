@@ -11,5 +11,5 @@ git clone git@github.com:srav001/LazyVim-config.git ~/.config/nvim && ~/.config/
 ### To Remove
 
 ```sh
-rm -rf ~/.config/nvim && rm -rf mv ~/.local/share/nvim && rm -rf mv ~/.local/state/nvim && rm -rf mv ~/.cache/nvim
+rm -rf ~/.config/nvim && rm -rf ~/.local/share/nvim && rm -rf ~/.local/state/nvim && rm -rf ~/.cache/nvim
 ```
