@@ -10,7 +10,6 @@ return {
 	{
 		"snacks.nvim",
 		opts = {
-			notifier = { enabled = false },
 			picker = {
 				sources = {
 					explorer = {
