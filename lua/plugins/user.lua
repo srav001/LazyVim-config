@@ -1,6 +1,8 @@
 return {
 	{
 		"LazyVim/LazyVim",
+		lazy = false,
+		priority = 1000,
 		opts = {
 			colorscheme = "catppuccin-mocha",
 		},
