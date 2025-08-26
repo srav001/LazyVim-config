@@ -12,6 +12,10 @@ return {
 		enabled = false,
 	},
 	{
+		"rcarriga/nvim-notify",
+		enabled = false,
+	},
+	{
 		"supermaven-inc/supermaven-nvim",
 		event = "InsertEnter",
 
