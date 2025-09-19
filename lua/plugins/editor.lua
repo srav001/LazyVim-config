@@ -21,7 +21,7 @@ return {
 		},
 	},
 	{
-		"echasnovski/mini.move",
+		"nvim-mini/mini.move",
 		version = "*",
 		opts = {},
 		event = "VeryLazy",
