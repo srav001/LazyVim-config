@@ -86,7 +86,7 @@ local function refresh_diagnostics()
 				end, buf)
 			end
 		end
-	end, 200)
+	end, 50)
 end
 
 return {

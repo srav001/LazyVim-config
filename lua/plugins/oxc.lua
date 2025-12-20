@@ -22,21 +22,27 @@ for ext, ft in pairs(extensions) do
 	end
 end
 
+local refresh_timer = nil
 local function refresh_diagnostics()
-	local buf = vim.api.nvim_get_current_buf()
-	local clients = vim.lsp.get_clients({ bufnr = buf, name = "oxc" })
-	if #clients == 0 then
-		return
+	if refresh_timer then
+		refresh_timer:stop()
 	end
-	local client = clients[1]
-	client:request("textDocument/diagnostic", {
-		textDocument = { uri = vim.uri_from_bufnr(buf) },
-	}, function(err, result, ctx)
-		if err or not result then
+	refresh_timer = vim.defer_fn(function()
+		local buf = vim.api.nvim_get_current_buf()
+		local clients = vim.lsp.get_clients({ bufnr = buf, name = "oxc" })
+		if #clients == 0 then
 			return
 		end
-		vim.lsp.diagnostic.on_diagnostic(err, result, ctx)
-	end, buf)
+		local client = clients[1]
+		client:request("textDocument/diagnostic", {
+			textDocument = { uri = vim.uri_from_bufnr(buf) },
+		}, function(err, result, ctx)
+			if err or not result then
+				return
+			end
+			vim.lsp.diagnostic.on_diagnostic(err, result, ctx)
+		end, buf)
+	end, 50)
 end
 
 local function find_root(bufnr)
