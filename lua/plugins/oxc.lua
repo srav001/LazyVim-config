@@ -1,10 +1,11 @@
+local FIX_ON_SAVE = true
+
 local function find_root(bufnr)
 	local file = vim.api.nvim_buf_get_name(bufnr)
 	if file == "" then
 		return nil
 	end
 	local dir = vim.fs.dirname(file)
-	-- Look for oxlint config files or the binary
 	local config = vim.fs.find({ ".oxlintrc.json", "oxlintrc.json", ".oxlint.json" }, {
 		path = dir,
 		upward = true,
@@ -12,12 +13,10 @@ local function find_root(bufnr)
 	})[1]
 	if config then
 		local root = vim.fs.dirname(config)
-		-- Verify binary exists at this root
 		if vim.uv.fs_stat(root .. "/node_modules/.bin/oxc_language_server") then
 			return root
 		end
 	end
-	-- Fallback: look for binary directly
 	local bin = vim.fs.find("node_modules/.bin/oxc_language_server", {
 		path = dir,
 		upward = true,
@@ -55,5 +54,23 @@ return {
 				},
 			},
 		},
+		init = function()
+			if not FIX_ON_SAVE then
+				return
+			end
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = vim.api.nvim_create_augroup("OxcFixOnSave", { clear = true }),
+				callback = function(ev)
+					local clients = vim.lsp.get_clients({ bufnr = ev.buf, name = "oxc" })
+					if #clients == 0 then
+						return
+					end
+					vim.lsp.buf.code_action({
+						context = { only = { "source.fixAll.oxc" }, diagnostics = {} },
+						apply = true,
+					})
+				end,
+			})
+		end,
 	},
 }
