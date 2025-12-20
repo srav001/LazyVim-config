@@ -29,34 +29,16 @@ return {
 		"neovim/nvim-lspconfig",
 		opts = function(_, opts)
 			opts.servers = opts.servers or {}
-
-			-- Prefer UTF-16 so all attached clients agree on position encoding
-			-- (fixes :LspInfo "Position Encodings" warning when mixing tsgo + tailwind, etc).
-			opts.servers["*"] = vim.tbl_deep_extend("force", opts.servers["*"] or {}, {
-				capabilities = {
-					general = {
-						positionEncodings = { "utf-16" },
-					},
-					workspace = {
-						didChangeConfiguration = {
-							dynamicRegistration = true,
-						},
-					},
-				},
-			})
-
-			-- tsgo (TypeScript Native Preview) - only starts when the binary is present
 			opts.servers.tsgo = vim.tbl_deep_extend("force", {
 				mason = false,
 				enabled = true,
-				-- Populate all default client capabilities (plus our global overrides) so the
-				-- server gets full feature negotiation (inlay hints, semantic tokens, etc).
+				-- Force UTF-16 so all clients share the same position encoding (prevents checkhealth warnings).
 				capabilities = (function()
 					local caps = vim.lsp.protocol.make_client_capabilities()
-					caps = vim.tbl_deep_extend("force", caps, (opts.servers["*"] or {}).capabilities or {})
+					caps.general = caps.general or {}
+					caps.general.positionEncodings = { "utf-16" }
 					return caps
 				end)(),
-				-- Match LazyVim's default vtsls UX (inlay hints, imports-on-move, etc).
 				settings = (function()
 					local typescript = {
 						updateImportsOnFileMove = { enabled = "always" },
@@ -73,11 +55,9 @@ return {
 
 					return {
 						typescript = typescript,
-						-- Keep JS behavior consistent with TS (same as LazyVim's vtsls setup).
 						javascript = vim.tbl_deep_extend("force", {}, typescript),
 					}
 				end)(),
-				-- Use a function so validation doesn't require a globally-executable `tsgo`.
 				cmd = function(dispatchers, config)
 					local root_dir = config.root_dir
 					local tsgo_bin = resolve_tsgo(root_dir)
@@ -95,7 +75,6 @@ return {
 					"javascript.jsx",
 				},
 				single_file_support = false,
-				-- `root_dir` must call `on_dir()` (see `:h lsp-root_dir()`).
 				root_dir = function(bufnr, on_dir)
 					local root = find_tsgo_root(bufnr)
 					if root then
@@ -104,30 +83,17 @@ return {
 				end,
 			}, opts.servers.tsgo or {})
 
-			-- Let LazyVim manage vtsls; we only gate activation when tsgo is present.
+			-- only use vtsls if tsgo is not present in project
 			opts.setup = opts.setup or {}
 			local existing_setup = opts.setup.vtsls
 			opts.setup.vtsls = function(server, server_opts)
-				-- If tsgo is available for this buffer, skip vtsls entirely.
 				if find_tsgo_root(0) then
 					return true
 				end
-				-- Otherwise, defer to any existing setup handler (if present).
 				if existing_setup then
 					return existing_setup(server, server_opts)
 				end
 				return false
-			end
-		end,
-	},
-
-	-- Ensure the fallback server is installed via Mason
-	{
-		"mason-org/mason.nvim",
-		opts = function(_, opts)
-			opts.ensure_installed = opts.ensure_installed or {}
-			if not vim.tbl_contains(opts.ensure_installed, "vtsls") then
-				table.insert(opts.ensure_installed, "vtsls")
 			end
 		end,
 	},
