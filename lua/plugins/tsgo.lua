@@ -102,6 +102,34 @@ return {
 			opts.servers.tsgo = vim.tbl_deep_extend("force", {
 				mason = false,
 				enabled = true,
+				-- Populate all default client capabilities (plus our global overrides) so the
+				-- server gets full feature negotiation (inlay hints, semantic tokens, etc).
+				capabilities = (function()
+					local caps = vim.lsp.protocol.make_client_capabilities()
+					caps = vim.tbl_deep_extend("force", caps, (opts.servers["*"] or {}).capabilities or {})
+					return caps
+				end)(),
+				-- Match LazyVim's default vtsls UX (inlay hints, imports-on-move, etc).
+				settings = (function()
+					local typescript = {
+						updateImportsOnFileMove = { enabled = "always" },
+						suggest = { completeFunctionCalls = true },
+						inlayHints = {
+							enumMemberValues = { enabled = true },
+							functionLikeReturnTypes = { enabled = true },
+							parameterNames = { enabled = "literals" },
+							parameterTypes = { enabled = true },
+							propertyDeclarationTypes = { enabled = true },
+							variableTypes = { enabled = false },
+						},
+					}
+
+					return {
+						typescript = typescript,
+						-- Keep JS behavior consistent with TS (same as LazyVim's vtsls setup).
+						javascript = vim.tbl_deep_extend("force", {}, typescript),
+					}
+				end)(),
 				-- Use a function so validation doesn't require a globally-executable `tsgo`.
 				cmd = function(dispatchers, config)
 					local root_dir = config.root_dir
