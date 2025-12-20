@@ -1,5 +1,22 @@
 local FIX_ON_SAVE = true
 
+local function refresh_diagnostics()
+	local buf = vim.api.nvim_get_current_buf()
+	local clients = vim.lsp.get_clients({ bufnr = buf, name = "oxc" })
+	if #clients == 0 then
+		return
+	end
+	local client = clients[1]
+	client:request("textDocument/diagnostic", {
+		textDocument = { uri = vim.uri_from_bufnr(buf) },
+	}, function(err, result, ctx)
+		if err or not result then
+			return
+		end
+		vim.lsp.diagnostic.on_diagnostic(err, result, ctx)
+	end, buf)
+end
+
 local function find_root(bufnr)
 	local file = vim.api.nvim_buf_get_name(bufnr)
 	if file == "" then
@@ -55,11 +72,19 @@ return {
 			},
 		},
 		init = function()
+			local group = vim.api.nvim_create_augroup("OxcDiagnostics", { clear = true })
+
+			-- Refresh diagnostics when focusing Neovim
+			vim.api.nvim_create_autocmd("FocusGained", {
+				group = group,
+				callback = refresh_diagnostics,
+			})
+
 			if not FIX_ON_SAVE then
 				return
 			end
 			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = vim.api.nvim_create_augroup("OxcFixOnSave", { clear = true }),
+				group = group,
 				callback = function(ev)
 					local clients = vim.lsp.get_clients({ bufnr = ev.buf, name = "oxc" })
 					if #clients == 0 then

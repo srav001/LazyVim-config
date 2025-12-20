@@ -121,7 +121,7 @@ return {
 			end
 		end,
 		init = function()
-			vim.api.nvim_create_autocmd("BufWritePost", {
+			vim.api.nvim_create_autocmd({ "BufWritePost", "FocusGained" }, {
 				group = vim.api.nvim_create_augroup("TsgoPullDiagnostics", { clear = true }),
 				pattern = patterns,
 				callback = refresh_diagnostics,
