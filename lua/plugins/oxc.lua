@@ -1,5 +1,27 @@
 local FIX_ON_SAVE = true
 
+local extensions = {
+	ts = "typescript",
+	tsx = "typescriptreact",
+	js = "javascript",
+	jsx = "javascriptreact",
+	mts = "typescript",
+	cts = "typescript",
+	mjs = "javascript",
+	cjs = "javascript",
+}
+
+-- Derive filetypes and patterns
+local filetypes, patterns = {}, {}
+local seen = {}
+for ext, ft in pairs(extensions) do
+	patterns[#patterns + 1] = "*." .. ext
+	if not seen[ft] then
+		seen[ft] = true
+		filetypes[#filetypes + 1] = ft
+	end
+end
+
 local function refresh_diagnostics()
 	local buf = vim.api.nvim_get_current_buf()
 	local clients = vim.lsp.get_clients({ bufnr = buf, name = "oxc" })
@@ -60,7 +82,7 @@ return {
 						local bin = config.root_dir .. "/node_modules/.bin/oxc_language_server"
 						return vim.lsp.rpc.start({ bin }, dispatchers, { cwd = config.root_dir })
 					end,
-					filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+					filetypes = filetypes,
 					single_file_support = false,
 					root_dir = function(bufnr, on_dir)
 						local root = find_root(bufnr)
@@ -74,9 +96,9 @@ return {
 		init = function()
 			local group = vim.api.nvim_create_augroup("OxcDiagnostics", { clear = true })
 
-			-- Refresh diagnostics when focusing Neovim
 			vim.api.nvim_create_autocmd("FocusGained", {
 				group = group,
+				pattern = patterns,
 				callback = refresh_diagnostics,
 			})
 
@@ -85,6 +107,7 @@ return {
 			end
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				group = group,
+				pattern = patterns,
 				callback = function(ev)
 					local clients = vim.lsp.get_clients({ bufnr = ev.buf, name = "oxc" })
 					if #clients == 0 then
