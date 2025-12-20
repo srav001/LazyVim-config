@@ -42,7 +42,7 @@ local function refresh_diagnostics()
 			end
 			vim.lsp.diagnostic.on_diagnostic(err, result, ctx)
 		end, buf)
-	end, 150)
+	end, 250)
 end
 
 local function find_root(bufnr)
