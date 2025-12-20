@@ -13,11 +13,8 @@ local function find_root(bufnr)
 		return nil
 	end
 	local root = vim.fs.dirname(vim.fs.dirname(vim.fs.dirname(bin)))
-	-- Require both @typescript/native-preview and typescript
-	if
-		vim.uv.fs_stat(root .. "/node_modules/@typescript/native-preview")
-		and vim.uv.fs_stat(root .. "/node_modules/typescript")
-	then
+	-- Use tsgo if @typescript/native-preview is installed
+	if vim.uv.fs_stat(root .. "/node_modules/@typescript/native-preview") then
 		return root
 	end
 	return nil
