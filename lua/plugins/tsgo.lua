@@ -51,9 +51,9 @@ local ts_settings = {
 	suggest = { completeFunctionCalls = true },
 	inlayHints = {
 		enumMemberValues = { enabled = true },
-		functionLikeReturnTypes = { enabled = true },
+		functionLikeReturnTypes = { enabled = false },
 		parameterNames = { enabled = "literals" },
-		parameterTypes = { enabled = true },
+		parameterTypes = { enabled = false },
 		propertyDeclarationTypes = { enabled = true },
 		variableTypes = { enabled = false },
 	},
@@ -86,7 +86,7 @@ local function refresh_diagnostics()
 				end, buf)
 			end
 		end
-	end, 75)
+	end, 50)
 end
 
 return {
