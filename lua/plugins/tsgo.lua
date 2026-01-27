@@ -75,16 +75,18 @@ local function refresh_diagnostics()
 				and (vim.api.nvim_buf_is_loaded(buf) or vim.fn.buflisted(buf) == 1)
 				and vim.bo[buf].buftype == ""
 				and is_ts_file(buf)
-			if is_valid then
-				client:request("textDocument/diagnostic", {
-					textDocument = { uri = vim.uri_from_bufnr(buf) },
-				}, function(err, result, ctx)
-					if err or not result then
-						return
+				if is_valid then
+					if client:supports_method("textDocument/diagnostic") or client.server_capabilities.diagnosticProvider then
+						client:request("textDocument/diagnostic", {
+							textDocument = { uri = vim.uri_from_bufnr(buf) },
+						}, function(err, result, ctx)
+							if err or not result then
+								return
+							end
+							vim.lsp.diagnostic.on_diagnostic(err, result, ctx)
+						end, buf)
 					end
-					vim.lsp.diagnostic.on_diagnostic(err, result, ctx)
-				end, buf)
-			end
+				end
 		end
 	end, 50)
 end
@@ -97,6 +99,13 @@ return {
 			local caps = vim.lsp.protocol.make_client_capabilities()
 			caps.general = caps.general or {}
 			caps.general.positionEncodings = { "utf-16" }
+			caps.textDocument = caps.textDocument or {}
+			caps.textDocument.diagnostic = {
+				dynamicRegistration = false,
+				relatedDocumentSupport = true,
+			}
+			caps.workspace = caps.workspace or {}
+			caps.workspace.diagnostics = { refreshSupport = true }
 
 			opts.servers.tsgo = {
 				mason = false,
