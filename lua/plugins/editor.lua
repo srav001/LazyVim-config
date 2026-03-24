@@ -1,12 +1,4 @@
 return {
-	-- {
-	-- 	"nvim-neo-tree/neo-tree.nvim",
-	-- 	opts = {
-	-- 		window = {
-	-- 			position = "float",
-	-- 		},
-	-- 	},
-	-- },
 	{
 		"snacks.nvim",
 		lazy = false,
