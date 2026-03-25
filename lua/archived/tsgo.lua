@@ -75,18 +75,20 @@ local function refresh_diagnostics()
 				and (vim.api.nvim_buf_is_loaded(buf) or vim.fn.buflisted(buf) == 1)
 				and vim.bo[buf].buftype == ""
 				and is_ts_file(buf)
-				if is_valid then
-					if client:supports_method("textDocument/diagnostic") or client.server_capabilities.diagnosticProvider then
-						client:request("textDocument/diagnostic", {
-							textDocument = { uri = vim.uri_from_bufnr(buf) },
-						}, function(err, result, ctx)
-							if err or not result then
-								return
-							end
-							vim.lsp.diagnostic.on_diagnostic(err, result, ctx)
-						end, buf)
-					end
+			if is_valid then
+				if
+					client:supports_method("textDocument/diagnostic") or client.server_capabilities.diagnosticProvider
+				then
+					client:request("textDocument/diagnostic", {
+						textDocument = { uri = vim.uri_from_bufnr(buf) },
+					}, function(err, result, ctx)
+						if err or not result then
+							return
+						end
+						vim.lsp.diagnostic.on_diagnostic(err, result, ctx)
+					end, buf)
 				end
+			end
 		end
 	end, 50)
 end
